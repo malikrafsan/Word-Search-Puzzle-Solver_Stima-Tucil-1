@@ -40,8 +40,6 @@ bool WordPuzzleSolver::solveHorizontal(
           break;
         }
       }
-      // found = checkHorizontal(word_puzzle, word_searched, i, j, false) ||
-      //         checkHorizontal(word_puzzle, word_searched, i, j, true);
       if (found) {
         addColor(word_puzzle, i, j, word_searched.length() - 1, 'H');
         break;
@@ -71,8 +69,6 @@ bool WordPuzzleSolver::solveVertical(
           break;
         }
       }
-      // found = checkVertical(word_puzzle, word_searched, i, j, false) ||
-      //         checkVertical(word_puzzle, word_searched, i, j, true);
       if (found) {
         addColor(word_puzzle, j, i, word_searched.length() - 1, 'V');
         break;
@@ -123,34 +119,6 @@ bool WordPuzzleSolver::solveCrossDiagonal(
     }
   }
   return false;
-}
-bool WordPuzzleSolver::checkHorizontal(
-    std::vector<std::vector<std::pair<char, int>>> &word_puzzle,
-    std::string &word_searched, int row, int col, bool isReversed) {
-  bool found = true;
-  for (int i = 0; i < (word_searched.length() - 1); i++) {
-    comparisons++;
-    if (word_searched[calcIndexWord(isReversed, i, word_searched.length())] !=
-        word_puzzle[row][col + i].first) {
-      found = false;
-      break;
-    }
-  }
-  return found;
-}
-bool WordPuzzleSolver::checkVertical(
-    std::vector<std::vector<std::pair<char, int>>> &word_puzzle,
-    std::string &word_searched, int row, int col, bool isReversed) {
-  bool found = true;
-  for (int i = 0; i < (word_searched.length() - 1); i++) {
-    comparisons++;
-    if (word_searched[calcIndexWord(isReversed, i, word_searched.length())] !=
-        word_puzzle[row + i][col].first) {
-      found = false;
-      break;
-    }
-  }
-  return found;
 }
 bool WordPuzzleSolver::checkMainDiagonal(
     std::vector<std::vector<std::pair<char, int>>> &word_puzzle,

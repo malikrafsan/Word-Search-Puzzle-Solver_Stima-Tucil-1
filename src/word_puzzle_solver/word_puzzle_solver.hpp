@@ -25,13 +25,6 @@ private:
       std::vector<std::vector<std::pair<char, int>>> &word_puzzle,
       std::string &word_searched);
   bool
-  checkHorizontal(std::vector<std::vector<std::pair<char, int>>> &word_puzzle,
-                  std::string &word_searched, int row, int col,
-                  bool isReversed);
-  bool
-  checkVertical(std::vector<std::vector<std::pair<char, int>>> &word_puzzle,
-                std::string &word_searched, int row, int col, bool isReversed);
-  bool
   checkMainDiagonal(std::vector<std::vector<std::pair<char, int>>> &word_puzzle,
                     std::string &word_searched, int rowStart, int colStart,
                     bool isReversed);
