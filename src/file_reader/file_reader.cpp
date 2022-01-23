@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-void FileReader::readFile(
+bool FileReader::readFile(
     std::string fileName,
     std::vector<std::vector<std::pair<char, int>>> &word_puzzle,
     std::vector<std::string> &words_searched) {
@@ -13,6 +13,10 @@ void FileReader::readFile(
   std::string line;
 
   fin.open(fileName);
+  if (!fin.is_open()) {
+    std::cout << "File not found" << std::endl;
+    return false;
+  }
   while (fin) {
     getline(fin, line);
 
@@ -38,4 +42,5 @@ void FileReader::readFile(
     i++;
   }
   fin.close();
+  return true;
 }

@@ -8,7 +8,7 @@ private:
   std::ifstream fin;
 
 public:
-  void readFile(std::string fileName,
+  bool readFile(std::string fileName,
                 std::vector<std::vector<std::pair<char, int>>> &word_puzzle,
                 std::vector<std::string> &words_searched);
 };

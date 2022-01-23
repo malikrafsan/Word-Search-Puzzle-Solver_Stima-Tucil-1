@@ -19,8 +19,10 @@ int main(int argc, char **argv) {
   }
 
   FileReader fileReader = FileReader();
-  fileReader.readFile(std::string("./tests/") + argv[1], word_puzzle,
-                      words_searched);
+  if (!fileReader.readFile(std::string("./tests/") + argv[1], word_puzzle,
+                           words_searched)) {
+    return 0;
+  }
 
   std::chrono::time_point<std::chrono::system_clock> start, end;
 
