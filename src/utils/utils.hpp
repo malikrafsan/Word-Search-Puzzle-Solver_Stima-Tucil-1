@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
@@ -25,7 +26,6 @@ private:
   };
   std::string inline getColor(int code) {
     return code == -1 ? RESET : colorCode[code % codeAmount];
-    // return RESET;
   }
 
 public:

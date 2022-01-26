@@ -9,7 +9,6 @@ bool FileReader::readFile(
     std::vector<std::vector<std::pair<char, int>>> &word_puzzle,
     std::vector<std::string> &words_searched) {
   bool isMode1 = true;
-  int i = 0;
   std::string line;
 
   fin.open(fileName);
@@ -17,13 +16,15 @@ bool FileReader::readFile(
     std::cout << "File not found" << std::endl;
     return false;
   }
+  // std::cout << "length of file" << fin.length() << std::endl;
   while (fin) {
     getline(fin, line);
+    std::cout << line << std::endl;
 
     if (line.length() > 1) {
       if (isMode1) {
         std::vector<std::pair<char, int>> line_vector;
-        for (int i = 0; i < line.length() - 1; i++) {
+        for (int i = 0; i < line.length(); i++) {
           if (line[i] != ' ') {
             line_vector.push_back({line[i], -1});
           }
@@ -39,7 +40,6 @@ bool FileReader::readFile(
         break;
       }
     }
-    i++;
   }
   fin.close();
   return true;

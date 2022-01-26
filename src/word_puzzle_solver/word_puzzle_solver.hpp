@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
@@ -10,7 +11,7 @@ private:
   bool solvePerWord(std::vector<std::vector<std::pair<char, int>>> &word_puzzle,
                     std::string &word_searched);
   int inline calcIndexWord(bool isReversed, int idx, int word_length) {
-    return isReversed ? word_length - idx - 2 : idx;
+    return isReversed ? word_length - idx - 1 : idx;
   }
   bool
   solveHorizontal(std::vector<std::vector<std::pair<char, int>>> &word_puzzle,
