@@ -7,10 +7,7 @@ void WordPuzzleSolver::solve(
   for (int i = 0; i < words_searched.size(); i++) {
     std::string word_searched = words_searched[i];
     idxWord = i;
-    // solvePerWord(word_puzzle, word_searched);
-    if (!solvePerWord(word_puzzle, word_searched)) {
-      std::cout << "No solution for " << word_searched << std::endl;
-    }
+    solvePerWord(word_puzzle, word_searched);
   }
 }
 bool WordPuzzleSolver::solvePerWord(
@@ -19,9 +16,9 @@ bool WordPuzzleSolver::solvePerWord(
   return solveHorizontal(word_puzzle, word_searched, false) ||
          solveHorizontal(word_puzzle, word_searched, true) ||
          solveVertical(word_puzzle, word_searched, false) ||
-         solveVertical(word_puzzle, word_searched, true);
-  //  solveMainDiagonal(word_puzzle, word_searched) ||
-  //  solveCrossDiagonal(word_puzzle, word_searched);
+         solveVertical(word_puzzle, word_searched, true) ||
+         solveMainDiagonal(word_puzzle, word_searched) ||
+         solveCrossDiagonal(word_puzzle, word_searched);
 }
 bool WordPuzzleSolver::solveHorizontal(
     std::vector<std::vector<std::pair<char, int>>> &word_puzzle,
@@ -42,7 +39,6 @@ bool WordPuzzleSolver::solveHorizontal(
         }
       }
       if (found) {
-        std::cout << word_searched;
         addColor(word_puzzle, i, j, word_searched.length(), 'H');
         break;
       }
@@ -72,7 +68,6 @@ bool WordPuzzleSolver::solveVertical(
         }
       }
       if (found) {
-        std::cout << word_searched;
         addColor(word_puzzle, j, i, word_searched.length(), 'V');
         break;
       }
@@ -129,11 +124,11 @@ bool WordPuzzleSolver::checkMainDiagonal(
   bool found = false;
 
   for (int i = 0;
-       (i + rowStart + word_searched.length() - 2) < word_puzzle.size() &&
-       (i + colStart + word_searched.length() - 2) < word_puzzle[0].size();
+       (i + rowStart + word_searched.length() - 1) < word_puzzle.size() &&
+       (i + colStart + word_searched.length() - 1) < word_puzzle[0].size();
        i++) {
     found = true;
-    for (int j = 0; j < (word_searched.length() - 1); j++) {
+    for (int j = 0; j < (word_searched.length()); j++) {
       comparisons++;
       if (word_puzzle[i + j + rowStart][i + j + colStart].first !=
           word_searched[calcIndexWord(isReversed, j, word_searched.length())]) {
@@ -142,9 +137,7 @@ bool WordPuzzleSolver::checkMainDiagonal(
       }
     }
     if (found) {
-      std::cout << word_searched;
-      addColor(word_puzzle, i + rowStart - (isReversed ? 1 : 0),
-               i + colStart - (isReversed ? 1 : 0), word_searched.length(),
+      addColor(word_puzzle, i + rowStart, i + colStart, word_searched.length(),
                'M');
       break;
     }
@@ -157,11 +150,11 @@ bool WordPuzzleSolver::checkCrossDiagonal(
   bool found = false;
 
   for (int i = 0;
-       (int(rowStart - word_searched.length() + 2 - i) >= 0 &&
-        colStart + word_searched.length() - 2 + i < word_puzzle[0].size());
+       (int(rowStart - word_searched.length() + 1 - i) >= 0 &&
+        colStart + word_searched.length() - 1 + i < word_puzzle[0].size());
        i++) {
     found = true;
-    for (int j = 0; j < (word_searched.length() - 1); j++) {
+    for (int j = 0; j < (word_searched.length()); j++) {
       comparisons++;
       if (word_puzzle[rowStart - i - j][colStart + i + j].first !=
           word_searched[calcIndexWord(isReversed, j, word_searched.length())]) {
@@ -170,9 +163,7 @@ bool WordPuzzleSolver::checkCrossDiagonal(
       }
     }
     if (found) {
-      std::cout << word_searched;
-      addColor(word_puzzle, rowStart - i + (isReversed ? 1 : 0),
-               colStart + i - (isReversed ? 1 : 0), word_searched.length(),
+      addColor(word_puzzle, rowStart - i, colStart + i, word_searched.length(),
                'C');
       break;
     }
@@ -183,7 +174,6 @@ bool WordPuzzleSolver::checkCrossDiagonal(
 void WordPuzzleSolver::addColor(
     std::vector<std::vector<std::pair<char, int>>> &word_puzzle, const int row,
     const int col, const int len, const char mode) {
-  std::cout << " " << row << ":" << col << std::endl;
   switch (mode) {
   case 'H':
     for (int i = 0; i < len; i++) {

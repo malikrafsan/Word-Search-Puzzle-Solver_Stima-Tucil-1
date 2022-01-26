@@ -35,7 +35,6 @@ int main(int argc, char **argv) {
 
   Utils utils = Utils();
   utils.showOutput(word_puzzle);
-  utils.showCodeColor(word_puzzle);
 
   std::cout << "COMPARISONS: " << wps.getComparisons() << std::endl;
 

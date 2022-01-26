@@ -16,10 +16,9 @@ bool FileReader::readFile(
     std::cout << "File not found" << std::endl;
     return false;
   }
-  // std::cout << "length of file" << fin.length() << std::endl;
+
   while (fin) {
     getline(fin, line);
-    std::cout << line << std::endl;
 
     if (line.length() > 1) {
       if (isMode1) {
