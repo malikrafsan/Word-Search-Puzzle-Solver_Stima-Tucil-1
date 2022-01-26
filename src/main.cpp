@@ -24,24 +24,19 @@ int main(int argc, char **argv) {
     return 0;
   }
 
-  std::chrono::time_point<std::chrono::system_clock> start, end;
-
-  start = std::chrono::system_clock::now();
-
+  auto start = std::chrono::high_resolution_clock::now();
   WordPuzzleSolver wps = WordPuzzleSolver();
   wps.solve(word_puzzle, words_searched);
-
-  end = std::chrono::system_clock::now();
+  auto stop = std::chrono::high_resolution_clock::now();
 
   Utils utils = Utils();
   utils.showOutput(word_puzzle);
-
   std::cout << "COMPARISONS: " << wps.getComparisons() << std::endl;
 
-  std::chrono::nanoseconds elapsed_seconds = end - start;
-  std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-
-  std::cout << "elapsed time: " << elapsed_seconds.count() << " nanoseconds\n";
+  auto duration =
+      std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+  std::cout << "Time taken by function: " << duration.count() << " nanoseconds"
+            << std::endl;
 
   return 0;
 }
